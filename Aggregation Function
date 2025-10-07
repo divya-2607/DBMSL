@@ -250,6 +250,9 @@ bank> db.customer.find().sort({bal:-1});
     location: 'Talegaon'
   }
 ]
+
+INDEXING:
+
 bank> db.customer.createIndex({customerId:1});
 customerId_1
 bank> db.customer.getIndexes();
