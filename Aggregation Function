@@ -1,8 +1,8 @@
 Microsoft Windows [Version 10.0.26100.6584]
 (c) Microsoft Corporation. All rights reserved.
 
-C:\Program Files\MongoDB\Server\8.2\bin>mongosh
-Current Mongosh Log ID: 68e4bf880546a37cdbcebea3
+C:\mongosh-2.5.8-win32-x64 (1)\mongosh-2.5.8-win32-x64\bin>mongosh
+Current Mongosh Log ID: 68e54e2d7a63336ab7cebea3
 Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
 Using MongoDB:          8.2.0
 Using Mongosh:          2.5.8
@@ -18,43 +18,279 @@ test> use bank
 switched to db bank
 bank> db.createCollection('customer')
 { ok: 1 }
-bank> db.customer.insertOne({_id:201,name:'Divya',bal:25000,bank:'SBI',location:'Dhule'});
-{ acknowledged: true, insertedId: 201 }
-bank> db.customer.insertOne({_id:202,name:'Kaustubh',bal:20000,bank:'HDFC',location:'Pune'});
-{ acknowledged: true, insertedId: 202 }
-bank> db.customer.insertOne({_id:203,name:'Anu',bal:10000,bank:'ICICI',location:'Nashik'});
-{ acknowledged: true, insertedId: 203 }
-bank> db.customer.count()
-DeprecationWarning: Collection.count() is deprecated. Use countDocuments or estimatedDocumentCount.
-3
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$sum:"$bal"}}}]);
-[ { _id: null, total_bal: 55000 } ]
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$min:"$bal"}}}]);
-[ { _id: null, total_bal: 10000 } ]
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$max:"$bal"}}}]);
+bank>  db.customer.insertOne({_id:101,name:'Divya',bal:25000,bank:'SBI',location:'Dhule'});
+{ acknowledged: true, insertedId: 101 }
+bank> db.customer.insertOne({_id:102,name:'Kaustubh',bal:20000,bank:'HDFC',location:'Pune'});
+{ acknowledged: true, insertedId: 102 }
+bank> db.customer.insertOne({_id:103,name:'Anu',bal:10000,bank:'ICICI',location:'Nashik'});
+{ acknowledged: true, insertedId: 103 }
+bank> db.customer.insertOne({_id:104,name:'Sejal',bal:8000,bank:'Axis',location:'Mumbai'});
+{ acknowledged: true, insertedId: 104 }
+bank> db.customer.insertOne({_id:105,name:'Gayatri',bal:5000,bank:'SBI',location:'Talegaon'});
+{ acknowledged: true, insertedId: 105 }
+bank> db.customer.find();
+[
+  {
+    _id: 201,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  },
+  {
+    _id: 202,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 203,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 205,
+    name: 'Nil',
+    bal: 25000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 101,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  },
+  {
+    _id: 102,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 103,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 104,
+    name: 'Sejal',
+    bal: 8000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 105,
+    name: 'Gayatri',
+    bal: 5000,
+    bank: 'SBI',
+    location: 'Talegaon'
+  }
+]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$min:'$bal'}}}]);
+[ { _id: null, total_bal: 5000 } ]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$max:'$bal'}}}]);
 [ { _id: null, total_bal: 25000 } ]
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$avg:"$bal"}}}]);
-[ { _id: null, total_bal: 18333.333333333332 } ]
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$push:"$bal"}}}]);
-[ { _id: null, total_bal: [ 25000, 20000, 10000 ] } ]
-bank> db.customer.insertOne({_id:205,name:'Nil',bal:25000,bank:'Axis',location:'Mumbai'});
-{ acknowledged: true, insertedId: 205 }
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$push:"$bal"}}}]);
-[ { _id: null, total_bal: [ 25000, 20000, 10000, 25000 ] } ]
-bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$addToSet:"$bal"}}}]);
-[ { _id: null, total_bal: [ 20000, 25000, 10000 ] } ]
-
-bank> db.customer.createIndex({name:1});
-name_1
-bank> db.customer.createIndex({bank:1});
-bank_1
-bank> db.customer.createIndex({bank:1,location:1});
-bank_1_location_1
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$sum:'$bal'}}}]);
+[ { _id: null, total_bal: 148000 } ]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$last:'$bal'}}}]);
+[ { _id: null, total_bal: 5000 } ]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$first:'$bal'}}}]);
+[ { _id: null, total_bal: 25000 } ]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$push:'$bal'}}}]);
+[
+  {
+    _id: null,
+    total_bal: [
+      25000, 20000, 10000,
+      25000, 25000, 20000,
+      10000,  8000,  5000
+    ]
+  }
+]
+bank> db.customer.aggregate([{$group:{_id:null,total_bal:{$addToSet:'$bal'}}}]);
+[ { _id: null, total_bal: [ 5000, 10000, 25000, 20000, 8000 ] } ]
+bank> db.customer.find().sort({balance:1});
+... db.customer.find().sort({bal:1});
+[
+  {
+    _id: 105,
+    name: 'Gayatri',
+    bal: 5000,
+    bank: 'SBI',
+    location: 'Talegaon'
+  },
+  {
+    _id: 104,
+    name: 'Sejal',
+    bal: 8000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 203,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 103,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 202,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 102,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 201,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  },
+  {
+    _id: 205,
+    name: 'Nil',
+    bal: 25000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 101,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  }
+]
+bank> db.customer.find().sort({bal:-1});
+[
+  {
+    _id: 201,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  },
+  {
+    _id: 205,
+    name: 'Nil',
+    bal: 25000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 101,
+    name: 'Divya',
+    bal: 25000,
+    bank: 'SBI',
+    location: 'Dhule'
+  },
+  {
+    _id: 202,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 102,
+    name: 'Kaustubh',
+    bal: 20000,
+    bank: 'HDFC',
+    location: 'Pune'
+  },
+  {
+    _id: 203,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 103,
+    name: 'Anu',
+    bal: 10000,
+    bank: 'ICICI',
+    location: 'Nashik'
+  },
+  {
+    _id: 104,
+    name: 'Sejal',
+    bal: 8000,
+    bank: 'Axis',
+    location: 'Mumbai'
+  },
+  {
+    _id: 105,
+    name: 'Gayatri',
+    bal: 5000,
+    bank: 'SBI',
+    location: 'Talegaon'
+  }
+]
+bank> db.customer.createIndex({customerId:1});
+customerId_1
 bank> db.customer.getIndexes();
 [
   { v: 2, key: { _id: 1 }, name: '_id_' },
   { v: 2, key: { name: 1 }, name: 'name_1' },
   { v: 2, key: { bank: 1 }, name: 'bank_1' },
-  { v: 2, key: { bank: 1, location: 1 }, name: 'bank_1_location_1' }
+  { v: 2, key: { bank: 1, location: 1 }, name: 'bank_1_location_1' },
+  { v: 2, key: { customerId: 1 }, name: 'customerId_1' }
+]
+bank> db.customer.createIndex({customerId:1},{Sparse:true});
+customerId_1
+bank> db.customer.getIndexes();
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' },
+  { v: 2, key: { bank: 1 }, name: 'bank_1' },
+  { v: 2, key: { bank: 1, location: 1 }, name: 'bank_1_location_1' },
+  { v: 2, key: { customerId: 1 }, name: 'customerId_1' }
+]
+bank> db.customer.createIndex({customerId:2},{Sparse:true});
+customerId_2
+bank> db.customer.getIndexes();
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' },
+  { v: 2, key: { bank: 1 }, name: 'bank_1' },
+  { v: 2, key: { bank: 1, location: 1 }, name: 'bank_1_location_1' },
+  { v: 2, key: { customerId: 1 }, name: 'customerId_1' },
+  { v: 2, key: { customerId: 2 }, name: 'customerId_2' }
+]
+bank> db.customer.createIndex({cId:3},{Sparse:true});
+cId_3
+bank> db.customer.getIndexes();
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' },
+  { v: 2, key: { bank: 1 }, name: 'bank_1' },
+  { v: 2, key: { bank: 1, location: 1 }, name: 'bank_1_location_1' },
+  { v: 2, key: { customerId: 1 }, name: 'customerId_1' },
+  { v: 2, key: { customerId: 2 }, name: 'customerId_2' },
+  { v: 2, key: { cId: 3 }, name: 'cId_3' }
 ]
 bank>
