@@ -1,7 +1,7 @@
 Microsoft Windows [Version 10.0.26100.6584]
 (c) Microsoft Corporation. All rights reserved.
 
-C:\mongosh-2.5.8-win32-x64 (1)\mongosh-2.5.8-win32-x64\bin>mongosh
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
 Current Mongosh Log ID: 68e54e2d7a63336ab7cebea3
 Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
 Using MongoDB:          8.2.0
